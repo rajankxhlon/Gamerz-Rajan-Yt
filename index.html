@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meri Awesome Website</title>
+    <style>
+        /* CSS Variables for Dark Mode Colors */
+        :root {
+            /* Dark Mode Colors */
+            --bg-color: #1a1a2e; /* Dark background */
+            --text-color: #e0e0e0; /* Light text */
+            --header-bg: #16213e; /* Darker header */
+            --header-h1: #7f5af0; /* Purple accent for header title */
+            --box-shadow: rgba(0,0,0,0.4);
+            --main-bg: #0f3460; /* Dark main content area */
+            --post-card-bg: #1b262c; /* Even darker card background */
+            --post-card-border: #2c3e50;
+            --post-title: #c0fefc; /* Cyan-ish for titles */
+            --post-content: #b0c4de; /* Lighter text for content */
+            --post-date: #90a4ae;
+            --drawer-bg: #0a1128; /* Dark drawer */
+            --drawer-link-hover-bg: #03081a;
+            --drawer-link-hover-color: #7f5af0;
+            --footer-bg: #0a1128;
+            --footer-text: #a0aec0;
+            --menu-icon-color: #7f5af0;
+        }
+
+        /* General Body Styles - Now directly uses dark mode variables */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color); /* Use dark mode variable */
+            color: var(--text-color); /* Use dark mode variable */
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg); /* Use dark mode variable */
+            padding: 20px 0;
+            box-shadow: 0 2px 4px var(--box-shadow); /* Use dark mode variable */
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .website-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--header-h1); /* Use dark mode variable */
+            box-shadow: 0 4px 8px var(--box-shadow); /* Use dark mode variable */
+        }
+
+        header h1 {
+            color: var(--header-h1); /* Use dark mode variable */
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+
+        /* Menu Icon */
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--menu-icon-color); /* Use dark mode variable */
+            z-index: 1001;
+        }
+        
+        /* Drawer Menu Styles */
+        .drawer-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            background-color: var(--drawer-bg); /* Use dark mode variable */
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: -3px 0 10px var(--box-shadow); /* Use dark mode variable */
+        }
+
+        .drawer-menu.open {
+            width: 250px;
+        }
+
+        .drawer-menu a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.2em;
+            color: var(--text-color); /* Use dark mode variable */
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid var(--post-card-border); /* Use dark mode variable */
+        }
+
+        .drawer-menu a:hover {
+            background-color: var(--drawer-link-hover-bg); /* Use dark mode variable */
+            color: var(--drawer-link-hover-color); /* Use dark mode variable */
+        }
+
+        .drawer-menu .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            margin-left: 50px;
+            color: var(--text-color); /* Use dark mode variable */
+        }
+
+        /* Overlay when drawer is open */
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.5);
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+
+        .overlay.active {
+            width: 100%;
+        }
+
+        /* Main Content Area */
+        #posts-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: var(--main-bg); /* Use dark mode variable */
+            border-radius: 8px;
+            box-shadow: 0 2px 8px var(--box-shadow); /* Use dark mode variable */
+        }
+
+        .loading-message, .no-posts-message, .error-message {
+            text-align: center;
+            font-style: italic;
+            color: var(--post-content); /* Use dark mode variable */
+            padding: 20px;
+        }
+
+        /* Post Card Styles */
+        .post-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .post-card {
+            background-color: var(--post-card-bg); /* Use dark mode variable */
+            border: 1px solid var(--post-card-border); /* Use dark mode variable */
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px var(--box-shadow); /* Use dark mode variable */
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px var(--box-shadow);
+        }
+
+        .post-card h2 {
+            color: var(--post-title); /* Use dark mode variable */
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .post-card .post-content {
+            color: var(--post-content); /* Use dark mode variable */
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .post-card .post-date {
+            display: block;
+            font-size: 0.9em;
+            color: var(--post-date); /* Use dark mode variable */
+            text-align: right;
+        }
+
+        .post-card img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: var(--footer-bg); /* Use dark mode variable */
+            color: var(--footer-text); /* Use dark mode variable */
+            font-size: 0.9em;
+        }
+
+        /* --- Mobile-Friendly Styles (Portrait Mode) --- */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .website-logo {
+                width: 120px;
+                height: 120px;
+            }
+            #posts-container {
+                margin: 20px 15px;
+                padding: 15px;
+            }
+            .post-card {
+                padding: 15px;
+            }
+            .post-card h2 {
+                font-size: 1.5em;
+            }
+            .post-card .post-content {
+                font-size: 0.95em;
+            }
+            .post-card .post-date {
+                font-size: 0.8em;
+            }
+            .drawer-menu.open {
+                width: 200px;
+            }
+            .drawer-menu a {
+                font-size: 1.1em;
+                padding: 12px 20px;
+            }
+            .drawer-menu .close-btn {
+                font-size: 30px;
+            }
+            .menu-icon {
+                font-size: 25px;
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 15px 0;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            .website-logo {
+                width: 100px;
+                height: 100px;
+            }
+            #posts-container {
+                margin: 15px 10px;
+                padding: 10px;
+            }
+            .post-card {
+                margin-bottom: 15px;
+                padding: 10px;
+            }
+            .post-card h2 {
+                font-size: 1.3em;
+            }
+            .post-card .post-content {
+                font-size: 0.9em;
+            }
+            footer {
+                padding: 15px;
+                font-size: 0.8em;
+            }
+            .drawer-menu.open {
+                width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Website Logo" class="website-logo">
+        </div>
+        <h1>Posts</h1>
+        <span class="menu-icon" onclick="openNav()">&#9776;</span>
+    </header>
+
+    <div id="myDrawer" class="drawer-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+        <a href="#" id="searchPostLink">Search Post</a>
+        <a href="about.html" id="aboutWebsiteLink">About Website</a>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeNav()"></div>
+
+    <main id="posts-container">
+        <p class="loading-message">Loading Posts...</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Gamerz Rajan Yt. All rights reserved.</p>
+    </footer>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBZM5VcTQZzGcT7kOXr9BqbmXArfyWksgM",
+          authDomain: "wechatin.firebaseapp.com",
+          projectId: "wechatin",
+          storageBucket: "wechatin.firebasestorage.app",
+          messagingSenderId: "299730668667",
+          appId: "1:299730668667:web:cebac557896e20b929e6de"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const postsContainer = document.getElementById('posts-container');
+        const loadingMessage = document.querySelector('.loading-message');
+        const drawerMenu = document.getElementById("myDrawer");
+        const overlay = document.getElementById("overlay");
+        const searchPostLink = document.getElementById("searchPostLink");
+
+        // --- Drawer Menu Functions ---
+        window.openNav = function() {
+            drawerMenu.classList.add('open');
+            overlay.classList.add('active');
+        }
+
+        window.closeNav = function() {
+            drawerMenu.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        // --- Fetch Posts Function ---
+        async function fetchPosts() {
+            try {
+                const q = query(collection(db, "posts"), orderBy('timestamp', 'desc'));
+                const querySnapshot = await getDocs(q);
+
+                postsContainer.innerHTML = ''; // Clear previous content
+                if (querySnapshot.empty) {
+                    postsContainer.innerHTML = '<p class="no-posts-message">Abhi koi post nahi hai.</p>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const post = doc.data();
+                    const postId = doc.id;
+                    const postCardLink = document.createElement('a');
+                    postCardLink.href = `post.html?id=${postId}`;
+                    postCardLink.classList.add('post-card-link');
+
+                    const postCard = document.createElement('div');
+                    postCard.classList.add('post-card');
+                    
+                    const date = post.timestamp ? new Date(post.timestamp.toDate()).toLocaleDateString('en-GB') : 'Unknown Date';
+
+                    postCard.innerHTML = `
+                        <h2>${post.title}</h2>
+                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : ''}
+                        <p class="post-content">${post.content}</p>
+                        <span class="post-date">${date}</span>
+                    `;
+                    postCardLink.appendChild(postCard);
+                    postsContainer.appendChild(postCardLink);
+                });
+            } catch (error) {
+                console.error("Error fetching posts: ", error);
+                postsContainer.innerHTML = `<p class="error-message">Posts load karte samay error aa gayi: ${error.message}</p>`;
+            }
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchPosts(); // Load posts on page load
+        });
+
+        searchPostLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Search Post functionality will be added here!');
+            closeNav();
+        });
+
+    </script>
+</body>
+</html>
