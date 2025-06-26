@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meri Awesome Website</title>
+    <title>Gamerz Rajan Yt</title>
     <style>
         /* CSS Variables for Dark Mode Colors */
         :root {
@@ -25,23 +25,34 @@
             --footer-bg: #0a1128;
             --footer-text: #a0aec0;
             --menu-icon-color: #7f5af0;
+
+            /* New Search Bar Colors (Adjusted for main section) */
+            --search-bg: #16213e; /* Matching header background for continuity */
+            --search-input-bg: #2c3e50;
+            --search-input-border: #4a5d73;
+            --search-input-text: #e0e0e0;
+            --search-placeholder-text: #90a4ae;
+            --search-button-bg: #7f5af0; /* Purple accent for search button */
+            --search-button-hover-bg: #6747cc;
+            --clear-button-bg: #dc3545; /* Red for clear */
+            --clear-button-hover-bg: #c82333;
         }
 
-        /* General Body Styles - Now directly uses dark mode variables */
+        /* General Body Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            background-color: var(--bg-color); /* Use dark mode variable */
-            color: var(--text-color); /* Use dark mode variable */
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
 
         /* Header Styles */
         header {
-            background-color: var(--header-bg); /* Use dark mode variable */
+            background-color: var(--header-bg);
             padding: 20px 0;
-            box-shadow: 0 2px 4px var(--box-shadow); /* Use dark mode variable */
+            box-shadow: 0 2px 4px var(--box-shadow);
             text-align: center;
             position: relative;
         }
@@ -58,12 +69,12 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--header-h1); /* Use dark mode variable */
-            box-shadow: 0 4px 8px var(--box-shadow); /* Use dark mode variable */
+            border: 3px solid var(--header-h1);
+            box-shadow: 0 4px 8px var(--box-shadow);
         }
 
         header h1 {
-            color: var(--header-h1); /* Use dark mode variable */
+            color: var(--header-h1);
             font-size: 2.5em;
             margin: 10px 0;
         }
@@ -75,11 +86,11 @@
             right: 20px;
             font-size: 30px;
             cursor: pointer;
-            color: var(--menu-icon-color); /* Use dark mode variable */
+            color: var(--menu-icon-color);
             z-index: 1001;
         }
         
-        /* Drawer Menu Styles */
+        /* Drawer Menu Styles (Search removed from here) */
         .drawer-menu {
             height: 100%;
             width: 0;
@@ -87,11 +98,13 @@
             z-index: 1000;
             top: 0;
             right: 0;
-            background-color: var(--drawer-bg); /* Use dark mode variable */
+            background-color: var(--drawer-bg);
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 60px;
-            box-shadow: -3px 0 10px var(--box-shadow); /* Use dark mode variable */
+            box-shadow: -3px 0 10px var(--box-shadow);
+            display: flex;
+            flex-direction: column;
         }
 
         .drawer-menu.open {
@@ -102,15 +115,15 @@
             padding: 15px 25px;
             text-decoration: none;
             font-size: 1.2em;
-            color: var(--text-color); /* Use dark mode variable */
+            color: var(--text-color);
             display: block;
             transition: 0.3s;
-            border-bottom: 1px solid var(--post-card-border); /* Use dark mode variable */
+            border-bottom: 1px solid var(--post-card-border);
         }
 
         .drawer-menu a:hover {
-            background-color: var(--drawer-link-hover-bg); /* Use dark mode variable */
-            color: var(--drawer-link-hover-color); /* Use dark mode variable */
+            background-color: var(--drawer-link-hover-bg);
+            color: var(--drawer-link-hover-color);
         }
 
         .drawer-menu .close-btn {
@@ -119,7 +132,7 @@
             right: 25px;
             font-size: 35px;
             margin-left: 50px;
-            color: var(--text-color); /* Use dark mode variable */
+            color: var(--text-color);
         }
 
         /* Overlay when drawer is open */
@@ -139,20 +152,87 @@
             width: 100%;
         }
 
+        /* --- New Search Bar Section --- */
+        .search-section {
+            background-color: var(--search-bg);
+            padding: 20px;
+            box-shadow: 0 2px 4px var(--box-shadow);
+            margin-bottom: 30px; /* Space between search and posts */
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px; /* Space between input and buttons */
+            align-items: center;
+            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+        }
+
+        #search-input {
+            flex-grow: 1; /* Allows input to take available space */
+            padding: 12px 15px;
+            border: 1px solid var(--search-input-border);
+            border-radius: 8px;
+            background-color: var(--search-input-bg);
+            color: var(--search-input-text);
+            font-size: 1.1em;
+            box-sizing: border-box; /* Include padding/border in element's total width */
+            min-width: 150px; /* Ensure input doesn't get too small */
+        }
+
+        #search-input::placeholder {
+            color: var(--search-placeholder-text);
+            opacity: 0.8;
+        }
+
+        .search-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        #search-button, #clear-search-button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap; /* Prevent button text from wrapping */
+        }
+
+        #search-button {
+            background-color: var(--search-button-bg);
+            color: white;
+        }
+        #search-button:hover {
+            background-color: var(--search-button-hover-bg);
+            transform: translateY(-1px);
+        }
+
+        #clear-search-button {
+            background-color: var(--clear-button-bg);
+            color: white;
+        }
+        #clear-search-button:hover {
+            background-color: var(--clear-button-hover-bg);
+            transform: translateY(-1px);
+        }
+
         /* Main Content Area */
         #posts-container {
             max-width: 800px;
-            margin: 30px auto;
+            margin: 0 auto 30px auto; /* Adjust margin to accommodate search section */
             padding: 20px;
-            background-color: var(--main-bg); /* Use dark mode variable */
+            background-color: var(--main-bg);
             border-radius: 8px;
-            box-shadow: 0 2px 8px var(--box-shadow); /* Use dark mode variable */
+            box-shadow: 0 2px 8px var(--box-shadow);
         }
 
-        .loading-message, .no-posts-message, .error-message {
+        .loading-message, .no-posts-message, .error-message, .search-results-message {
             text-align: center;
             font-style: italic;
-            color: var(--post-content); /* Use dark mode variable */
+            color: var(--post-content);
             padding: 20px;
         }
 
@@ -164,12 +244,12 @@
         }
 
         .post-card {
-            background-color: var(--post-card-bg); /* Use dark mode variable */
-            border: 1px solid var(--post-card-border); /* Use dark mode variable */
+            background-color: var(--post-card-bg);
+            border: 1px solid var(--post-card-border);
             border-radius: 6px;
             padding: 15px 20px;
             margin-bottom: 20px;
-            box-shadow: 0 1px 3px var(--box-shadow); /* Use dark mode variable */
+            box-shadow: 0 1px 3px var(--box-shadow);
             transition: transform 0.2s ease-in-out;
             cursor: pointer;
         }
@@ -180,14 +260,14 @@
         }
 
         .post-card h2 {
-            color: var(--post-title); /* Use dark mode variable */
+            color: var(--post-title);
             margin-top: 0;
             margin-bottom: 10px;
             font-size: 1.8em;
         }
 
         .post-card .post-content {
-            color: var(--post-content); /* Use dark mode variable */
+            color: var(--post-content);
             margin-bottom: 10px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
@@ -199,7 +279,7 @@
         .post-card .post-date {
             display: block;
             font-size: 0.9em;
-            color: var(--post-date); /* Use dark mode variable */
+            color: var(--post-date);
             text-align: right;
         }
 
@@ -216,12 +296,12 @@
             text-align: center;
             padding: 20px;
             margin-top: 40px;
-            background-color: var(--footer-bg); /* Use dark mode variable */
-            color: var(--footer-text); /* Use dark mode variable */
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
             font-size: 0.9em;
         }
 
-        /* --- Mobile-Friendly Styles (Portrait Mode) --- */
+        /* --- Mobile-Friendly Styles --- */
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2em;
@@ -229,6 +309,29 @@
             .website-logo {
                 width: 120px;
                 height: 120px;
+            }
+            .search-section {
+                padding: 15px;
+            }
+            .search-container {
+                flex-direction: column; /* Stack items vertically on smaller screens */
+                align-items: stretch; /* Stretch items to full width */
+                gap: 15px;
+            }
+            #search-input {
+                width: 100%;
+                font-size: 1em;
+                padding: 10px 12px;
+            }
+            .search-buttons {
+                width: 100%;
+                flex-direction: column; /* Stack buttons vertically too */
+                gap: 10px;
+            }
+            #search-button, #clear-search-button {
+                width: 100%;
+                font-size: 1em;
+                padding: 10px 15px;
             }
             #posts-container {
                 margin: 20px 15px;
@@ -274,6 +377,13 @@
                 width: 100px;
                 height: 100px;
             }
+            .search-section {
+                padding: 10px;
+            }
+            #search-input, #search-button, #clear-search-button {
+                padding: 8px;
+                font-size: 0.95em;
+            }
             #posts-container {
                 margin: 15px 10px;
                 padding: 10px;
@@ -309,14 +419,23 @@
 
     <div id="myDrawer" class="drawer-menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
-        <a href="#" id="searchPostLink">Search Post</a>
         <a href="about.html" id="aboutWebsiteLink">About Website</a>
     </div>
 
     <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
+    <div class="search-section">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search posts by title..." aria-label="Search posts by title">
+            <div class="search-buttons">
+                <button id="search-button">Search</button>
+                <button id="clear-search-button">Clear</button>
+            </div>
+        </div>
+    </div>
+
     <main id="posts-container">
-        <p class="loading-message">Loading Posts...</p>
+        <p class="loading-message">Posts load ho rahe hain...</p>
     </main>
 
     <footer>
@@ -324,13 +443,9 @@
     </footer>
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Your web app's Firebase configuration
         const firebaseConfig = {
           apiKey: "AIzaSyBZM5VcTQZzGcT7kOXr9BqbmXArfyWksgM",
           authDomain: "wechatin.firebaseapp.com",
@@ -340,15 +455,16 @@
           appId: "1:299730668667:web:cebac557896e20b929e6de"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         const postsContainer = document.getElementById('posts-container');
-        const loadingMessage = document.querySelector('.loading-message');
         const drawerMenu = document.getElementById("myDrawer");
         const overlay = document.getElementById("overlay");
-        const searchPostLink = document.getElementById("searchPostLink");
+        const searchInput = document.getElementById("search-input");
+        const searchButton = document.getElementById("search-button");
+        const clearSearchButton = document.getElementById("clear-search-button");
+        const aboutWebsiteLink = document.getElementById("aboutWebsiteLink");
 
         // --- Drawer Menu Functions ---
         window.openNav = function() {
@@ -361,23 +477,41 @@
             overlay.classList.remove('active');
         }
 
-        // --- Fetch Posts Function ---
-        async function fetchPosts() {
+        // --- Fetch Posts Function (Unchanged logic, just location of elements) ---
+        async function fetchPosts(searchTerm = '') {
+            postsContainer.innerHTML = '<p class="loading-message">Posts load ho rahe hain...</p>';
             try {
                 const q = query(collection(db, "posts"), orderBy('timestamp', 'desc'));
                 const querySnapshot = await getDocs(q);
 
-                postsContainer.innerHTML = ''; // Clear previous content
-                if (querySnapshot.empty) {
-                    postsContainer.innerHTML = '<p class="no-posts-message">Abhi koi post nahi hai.</p>';
+                let filteredPosts = [];
+                if (searchTerm) {
+                    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+                    querySnapshot.forEach((doc) => {
+                        const post = doc.data();
+                        if (post.title && post.title.toLowerCase().includes(lowerCaseSearchTerm)) {
+                            filteredPosts.push({ id: doc.id, ...post });
+                        }
+                    });
+                } else {
+                    querySnapshot.forEach((doc) => {
+                        filteredPosts.push({ id: doc.id, ...doc.data() });
+                    });
+                }
+
+                postsContainer.innerHTML = '';
+                if (filteredPosts.length === 0) {
+                    if (searchTerm) {
+                        postsContainer.innerHTML = `<p class="search-results-message">"${searchTerm}" ke liye koi post nahi mili.</p>`;
+                    } else {
+                        postsContainer.innerHTML = '<p class="no-posts-message">Abhi koi post nahi hai.</p>';
+                    }
                     return;
                 }
 
-                querySnapshot.forEach((doc) => {
-                    const post = doc.data();
-                    const postId = doc.id;
+                filteredPosts.forEach((post) => {
                     const postCardLink = document.createElement('a');
-                    postCardLink.href = `post.html?id=${postId}`;
+                    postCardLink.href = `post.html?id=${post.id}`;
                     postCardLink.classList.add('post-card-link');
 
                     const postCard = document.createElement('div');
@@ -395,22 +529,38 @@
                     postsContainer.appendChild(postCardLink);
                 });
             } catch (error) {
-                console.error("Error fetching posts: ", error);
+                console.error("Posts fetch karte samay error aa gayi: ", error);
                 postsContainer.innerHTML = `<p class="error-message">Posts load karte samay error aa gayi: ${error.message}</p>`;
             }
         }
 
-        // --- Event Listeners ---
+        // --- Event Listeners (Adjusted for new search bar location) ---
         document.addEventListener('DOMContentLoaded', () => {
-            fetchPosts(); // Load posts on page load
+            fetchPosts(); // Load all posts on initial page load
         });
 
-        searchPostLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Search Post functionality will be added here!');
+        searchButton.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim();
+            fetchPosts(searchTerm);
+            // No need to close drawer here as search is outside
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+
+        clearSearchButton.addEventListener('click', () => {
+            searchInput.value = '';
+            fetchPosts();
+            // No need to close drawer here
+        });
+
+        aboutWebsiteLink.addEventListener('click', (e) => {
+            // This link is still in the drawer
             closeNav();
         });
-
     </script>
 </body>
 </html>
